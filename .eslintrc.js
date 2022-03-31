@@ -1,15 +1,23 @@
 module.exports = {
   root: true,
-  plugins: [
-    '@typescript-eslint',
-  ],
+  env: {
+    node: true,
+  },
   extends: [
     'airbnb-base',
     'airbnb-typescript/base',
   ],
-  env: {
-    node: true,
+  settings: {
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+        project: './tsconfig.json',
+      }
+    },
   },
+  plugins: [
+    '@typescript-eslint',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: './tsconfig.json',
@@ -24,6 +32,12 @@ module.exports = {
       'error',
       { classes: 'always' },
     ],
+    'arrow-body-style': 'off',
+
+    'class-methods-use-this': 'off',
+
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error', { 'args': 'none' }],
 
     // except empty line after atrribute scope variable declarations
     '@typescript-eslint/lines-between-class-members': [

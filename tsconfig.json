@@ -6,10 +6,13 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@test/*": ["test/*"],
     },
 
-    "strict": true,
+    "experimentalDecorators": true,
+
+    "strict": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true

@@ -1,0 +1,15 @@
+node_modules
+.npmrc
+
+Dockerfile
+.dockerignore
+
+.git
+.gitignore
+README.md
+
+.vscode
+.idea
+.editorconfig
+
+dist

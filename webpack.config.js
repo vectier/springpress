@@ -6,10 +6,9 @@ const nodeExternals = require('webpack-node-externals');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
 const app = {
-  entry: path.resolve(srcPath, 'app.ts'),
+  entry: path.resolve(srcPath, 'App.ts'),
   module: {
     rules: [
       {
@@ -25,12 +24,13 @@ const app = {
       extensions: ['ts'],
     }),
     new ForkTsCheckerWebpackPlugin(),
-    new CopyPlugin({
-      patterns: [
-        { from: path.resolve(__dirname, 'package.json'), to: distPath },
-      ],
-    }),
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+    extensions: ['.ts'],
+  },
   externalsPresets: { node: true },
   externals: [nodeExternals()],
   stats: {
