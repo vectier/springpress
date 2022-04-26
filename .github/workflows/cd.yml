@@ -1,18 +1,24 @@
 name: cd
 
 on:
-  release:
-    types: [ created ]
   workflow_dispatch:
 
 jobs:
   ci:
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    needs: ci
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/workflows/ci.yml
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Use Node.js LTS (Gallium)
+        uses: actions/setup-node@v3
         with:
-          username: ${{ inputs.username }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: 16.14.2
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Publish to NPM registry
         run: yarn publish

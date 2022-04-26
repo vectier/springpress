@@ -6,16 +6,9 @@ on:
       - '**'
   workflow_dispatch:
   workflow_call:
-    inputs:
-      username:
-        required: true
-        type: string
-    secrets:
-      envPAT:
-        required: true
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
