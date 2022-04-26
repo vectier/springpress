@@ -1,11 +1,11 @@
 {
   "name": "springpress",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha",
   "description": "Express.js top-level framework",
   "author": "Krid Heprakhone <riflowth@gmail.com>",
   "license": "MIT",
   "repository": "github:riflowth/springpress",
-  "homepage": "https://github.com/riflowth/springpress#readme",
+  "homepage": "https://github.com/riflowth/springpress",
   "keywords": [
     "nodejs",
     "express",
@@ -29,7 +29,7 @@
     "lib/"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=16.14.2"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
