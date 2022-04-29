@@ -1,7 +1,7 @@
 import http from 'http';
-import { NextFunction } from 'express';
+import { Express, NextFunction } from 'express';
 
-export class Controller {
+export abstract class Controller {
   /**
    * Gets the modular router path of the controller instance.
    * @returns a modular router path
@@ -13,6 +13,28 @@ export class Controller {
    * @returns The router structure (array of {@link Route})
    */
   getRouter(): Route[];
+}
+
+export abstract class Middleware {
+  /**
+   * Returns a function that have access to the request object,
+   * the response object, and the next middleware function.
+   */
+  abstract getHandler(): Promise<RouteHandler>;
+  getRegisterCondition(): MiddlewareCondition;
+}
+
+export type MiddlewareCondition = (routeMethod: Methods, routeMetadata: RouteMetadata) => boolean;
+
+export class ControllerRegistry {
+  constructor(app: Express);
+  /**
+   * Registers a controller instance (a class extended {@link Controller})
+   * into the controller registry for routing system.
+   * @param controller - A controlller instance
+   * @param middlewares - A single middleware or a group of middlewares
+   */
+  register(controller: Controller, ...middlewares: Middleware[]);
 }
 
 /**
@@ -69,7 +91,7 @@ export enum Methods {
   DELETE = 'DELETE',
 }
 
-export type RouteHandler = (req: Request, res: Response, next?: NextFunction) => Promise<void>;
+export type RouteHandler = (req: Request, res: Response, next: NextFunction) => Promise<void>;
 
 export type RouteMetadata = {
   path: string,
@@ -94,4 +116,8 @@ export abstract class Springpress {
    * @returns A port that binds this server
    */
   getPort(): number;
+  /**
+   * @returns The controller registry instance
+   */
+  getControllerRegistry(): ControllerRegistry;
 }
