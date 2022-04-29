@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - '**'
+    branches-ignore:
+      - 'main'
   workflow_dispatch:
   workflow_call:
 
