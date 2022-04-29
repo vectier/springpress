@@ -6,7 +6,7 @@ Custom top-level framework of Express.js, especially on [TypeScript](https://git
 
 ## Installation
 
-> Node.js 16.14.2 (LTS) or higher is required.
+> Node.js 16.15.0 (LTS) or higher is required.
 
 Installing by using the following commands
 
