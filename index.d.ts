@@ -20,7 +20,7 @@ export abstract class Middleware {
    * Returns a function that have access to the request object,
    * the response object, and the next middleware function.
    */
-  abstract getHandler(): Promise<RouteHandler>;
+  abstract getHandler(routeMetadata: RouteMetadata): Promise<RouteHandler>;
   getRegisterCondition(): MiddlewareCondition;
 }
 
