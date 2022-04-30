@@ -1,6 +1,6 @@
 {
   "name": "springpress",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0",
   "description": "Express.js top-level framework",
   "author": "Krid Heprakhone <riflowth@gmail.com>",
   "license": "MIT",
@@ -29,7 +29,7 @@
     "lib/"
   ],
   "engines": {
-    "node": ">=16.15.0"
+    "node": "16.15.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
