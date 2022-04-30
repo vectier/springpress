@@ -1,18 +1,22 @@
 import { Methods, Middleware, RouteHandler, RouteMetadata } from '../..';
 
-export class MockMiddleware extends Middleware {
+export class MockMiddleware implements Middleware {
 
-  public async getHandler(): Promise<RouteHandler> {
+  public getHandler(): RouteHandler {
     return async (req, res, next) => {
       next();
     };
   }
 
+  public getRegisterCondition(routeMethod: Methods, routeMetadata: RouteMetadata): boolean {
+    return true;
+  }
+
 }
 
-export class MockConditionalMiddleware extends Middleware {
+export class MockConditionalMiddleware implements Middleware {
 
-  public async getHandler(): Promise<RouteHandler> {
+  public getHandler(): RouteHandler {
     return async (req, res, next) => {
       next();
     };
