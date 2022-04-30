@@ -22,10 +22,8 @@ export abstract class Middleware {
    * @param routeMetadata - A route metadata
    */
   abstract getHandler(routeMetadata: RouteMetadata): Promise<RouteHandler>;
-  getRegisterCondition(): MiddlewareCondition;
+  getRegisterCondition(routeMethod: Methods, routeMetadata: RouteMetadata): boolean;
 }
-
-export type MiddlewareCondition = (routeMethod: Methods, routeMetadata: RouteMetadata) => boolean;
 
 export class ControllerRegistry {
   constructor(app: Express);
