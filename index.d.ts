@@ -15,13 +15,19 @@ export abstract class Controller {
   getRouter(): Route[];
 }
 
-export abstract class Middleware {
+export interface Middleware {
   /**
    * Returns a function that have access to the request object,
    * the response object, and the next middleware function.
    * @param routeMetadata - A route metadata
    */
-  abstract getHandler(routeMetadata: RouteMetadata): Promise<RouteHandler>;
+  getHandler(routeMetadata: RouteMetadata): RouteHandler;
+  /**
+   * Returns a boolean represent to the middleware register condition
+   * @param routeMethod - A route method for conditioning
+   * @param routeMetadata - A route metadata for conditioning
+   * @returns True if a route matches the middleware register condition, otherwise returns false
+   */
   getRegisterCondition(routeMethod: Methods, routeMetadata: RouteMetadata): boolean;
 }
 
@@ -33,7 +39,7 @@ export class ControllerRegistry {
    * @param controller - A controlller instance
    * @param middlewares - A single middleware or a group of middlewares
    */
-  register(controller: Controller, ...middlewares: Middleware[]);
+  register(controller: Controller, ...middlewares: Middleware[]): void;
 }
 
 /**
