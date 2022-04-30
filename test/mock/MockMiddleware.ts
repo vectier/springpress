@@ -1,4 +1,4 @@
-import { Middleware, MiddlewareCondition, RouteHandler } from '../..';
+import { Methods, Middleware, RouteHandler, RouteMetadata } from '../..';
 
 export class MockMiddleware extends Middleware {
 
@@ -18,10 +18,8 @@ export class MockConditionalMiddleware extends Middleware {
     };
   }
 
-  public getRegisterCondition(): MiddlewareCondition {
-    return (routeMethod, routeMetadata) => {
-      return routeMetadata.path === '/test2';
-    };
+  public getRegisterCondition(routeMethod: Methods, routeMetadata: RouteMetadata): boolean {
+    return routeMetadata.path === '/test2';
   }
 
 }
