@@ -1,6 +1,6 @@
 {
   "name": "springpress",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "Express.js top-level framework",
   "author": "Krid Heprakhone <riflowth@gmail.com>",
   "license": "MIT",
