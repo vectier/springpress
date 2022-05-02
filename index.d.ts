@@ -1,5 +1,5 @@
 import http from 'http';
-import { Express, NextFunction } from 'express';
+import { Express } from 'express';
 
 export abstract class Controller {
   /**
@@ -23,11 +23,11 @@ export interface Middleware {
    */
   getHandler(routeMetadata: RouteMetadata): RouteHandler;
   /**
-   * Returns a boolean represent to the middleware register condition
-   * @param routeMethod - A route method for conditioning
-   * @param routeMetadata - A route metadata for conditioning
-   * @returns True if a route matches the middleware register condition, otherwise returns false
-   */
+ * Returns a boolean represent to the middleware register condition
+ * @param routeMethod - A route method for conditioning
+ * @param routeMetadata - A route metadata for conditioning
+ * @returns True if a route matches the middleware register condition, otherwise returns false
+ */
   getRegisterCondition(routeMethod: Methods, routeMetadata: RouteMetadata): boolean;
 }
 
@@ -107,6 +107,12 @@ export type Route = {
   handler: RouteHandler,
   metadata: RouteMetadata,
 };
+
+export type Request = Express.Request;
+
+export type Response = Express.Request;
+
+export type NextFunction = Express.NextFunction;
 
 export abstract class Springpress {
   constructor(port: number);
