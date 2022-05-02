@@ -21,6 +21,14 @@ describe('Test the ControllerRegistry class implementation', () => {
     expect(findRouter(expressApp).length).toBe(2);
   });
 
+  it('should throw an error when register a duplicated controller', () => {    
+    const registerDuplicated = () => {
+      controllerRegistry.register(new MockIndexController());
+      controllerRegistry.register(new MockIndexController());
+    };
+    expect(registerDuplicated).toThrow(Error);
+  });
+
   it('should registered the mock controller and the middleware correctly', () => {
     let router, routes;
 
