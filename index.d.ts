@@ -114,6 +114,14 @@ export type Response = Express.Request;
 
 export type NextFunction = Express.NextFunction;
 
+export class RouteUtil {
+  /**
+   * Add data into the route metadata
+   * @param data - A key-value pairs of data to merge into the route metadata
+   */
+  static addRouteMetadata(data: Record<string, any>): MethodDecorator;
+}
+
 export abstract class Springpress {
   constructor(port: number);
   abstract onStartup(): Promise<void>;
