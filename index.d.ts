@@ -40,6 +40,10 @@ export class ControllerRegistry {
    * @param middlewares - A single middleware or a group of middlewares
    */
   register(controller: Controller, ...middlewares: Middleware[]): void;
+  /**
+   * @returns A count of registered controller
+   */
+  size(): number;
 }
 
 /**
