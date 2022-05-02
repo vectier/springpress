@@ -45,6 +45,12 @@ describe('Test the ControllerRegistry class implementation', () => {
     expect(routes.find((layer: any) => layer.route.path === '/test2').route.stack.length).toBe(2);
   });
 
+  it('should return a registered controller count correctly', () => {
+    controllerRegistry.register(new MockIndexController());
+    controllerRegistry.register(new MockTestController(), new MockMiddleware());
+    expect(controllerRegistry.size()).toBe(2);
+  });
+
 });
 
 const findRouter = (expressApp: Express) => {
