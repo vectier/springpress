@@ -40,8 +40,12 @@ export class ControllerRegistry {
   /**
    * Registers a controller instance (a class extended {@link Controller})
    * into the controller registry for routing system.
-   * @param controller - A controlller instance
-   * @param middlewares - A single middleware or a group of middlewares
+   * 
+   * @remarks
+   * The middlewares run in the sequence as passed in the parameter.
+   * 
+   * @param controller - A controller instance
+   * @param middlewares - A single middleware or a group of middleware
    */
   register(controller: Controller, ...middlewares: Middleware[]): void;
   /**
