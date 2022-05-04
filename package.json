@@ -19,10 +19,6 @@
   "scripts": {
     "test": "jest"
   },
-  "dependencies": {
-    "express": "^4.17.3",
-    "reflect-metadata": "^0.1.13"
-  },
   "files": [
     "LICENSE",
     "index.js",
@@ -32,8 +28,12 @@
   "engines": {
     "node": "16.15.0"
   },
-  "devDependencies": {
+  "dependencies": {
     "@types/express": "^4.17.13",
+    "express": "^4.18.1",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
     "@types/jest": "^27.4.1",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
