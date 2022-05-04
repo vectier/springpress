@@ -61,7 +61,7 @@ export class ControllerRegistry {
 export function ControllerMapping(path: string): ClassDecorator;
 
 /**
- * Controls the incomming request body of decorated route.
+ * Controls the incoming request body of decorated route.
  * If the body does not match the requirement will throw {@link BadRequestException}.
  * @param keys - Required request body (starts with "?" for optional key)
  */
