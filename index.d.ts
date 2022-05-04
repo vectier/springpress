@@ -1,5 +1,9 @@
 import http from 'http';
-import { Express } from 'express';
+import {
+  Request as ExpressRequest,
+  Response as ExpressResponse,
+  NextFunction as ExpressNextFunction,
+} from 'express';
 
 export abstract class Controller {
   /**
@@ -112,11 +116,11 @@ export type Route = {
   metadata: RouteMetadata,
 };
 
-export type Request = Express.Request;
+export interface Request extends ExpressRequest {}
 
-export type Response = Express.Request;
+export interface Response extends ExpressResponse {}
 
-export type NextFunction = Express.NextFunction;
+export interface NextFunction extends ExpressNextFunction {}
 
 export class RouteUtil {
   /**
