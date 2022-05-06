@@ -1,6 +1,6 @@
 {
   "name": "springpress",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Express.js top-level MVC framework feel like Spring Boot",
   "author": "Krid Heprakhone <riflowth@gmail.com>",
   "license": "MIT",
