@@ -58,6 +58,14 @@ class ExampleController extends Controller {
 
 The `@ControllerMapping` decorator will map your class on a router with the path where you specified in the first decorator parameter. In this case, this class will be mapped with `/example` on the router, a client can connect by `http://localhost:3000/example`. *(port 3000 just an example)*
 
+## Contribution
+
+There are many ways in which you can participate in this project, for example:
+
+- [Submit bugs and feature request](https://github.com/riflowth/springpress/issues).
+- Review [source code changes](https://github.com/riflowth/tier-discord-bot/pulls).
+- Fixing issues and contributing directly to the code base by [submitting pull requests](https://github.com/riflowth/tier-discord-bot/pulls).
+
 ## License
 
 License under the [MIT](https://github.com/riflowth/nextpress/blob/main/LICENSE) license.
