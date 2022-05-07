@@ -20,7 +20,7 @@ $ yarn add springpress
 
 ## Usage
 
-
+*Assume you will create a dog controller that sends a response of the name of the dog when requesting to /dog/name.*
 
 ### Server
 
