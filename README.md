@@ -2,7 +2,7 @@
 
 A Top-level framework of Express.js for developing clean architecture API service, especially on [TypeScript](https://github.com/microsoft/TypeScript).
 
-**Springpress** provides basic *Express.js* functions and MVC utilities related out of the box, lets you deep dive into the world of [OOP](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object-oriented_programming) and the scent of our motivation, *Spring Boot*.
+**Springpress** provides basic *Express.js* functions and MVC utilities related out of the box. Let you deep-dive into the world of [OOP](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object-oriented_programming) and the scent of our motivation, *Spring Boot* with **Springpress**.
 
 ## Installation
 
@@ -37,7 +37,7 @@ class ExampleServer extends Springpress {
 }
 ```
 
-Don't forget to call `Springpress#listen` to binds and listens for connections. This method returns a [http.Server](https://nodejs.org/docs/latest-v16.x/api/http.html#class-httpserver) object (the built-in HTTP module). *You can use this instance on your testing framework to work with HTTP*.
+Don't forget to call `Springpress#listen` to binds and listens for connections. This method returns an [http.Server](https://nodejs.org/docs/latest-v16.x/api/http.html#class-httpserver) object (the built-in HTTP module). *You can use this instance on your testing framework to work with HTTP*.
 
 ```ts
 const port = 3000; // you can specify whatever port you want :)
@@ -58,7 +58,7 @@ class DogController extends Controller {
 }
 ```
 
-The `@ControllerMapping` decorator will mount your class on a router with the path where you specified in the first decorator parameter. In this case, this class will be mapped with `/dog` on the router, a client can connect by `http://localhost:3000/dog`. *(port 3000 just an example)*
+The `@ControllerMapping` decorator will mount your class on a router with the path where you specified in the first decorator parameter. In this case, this class will be mapped with `/dog` on the router, a client can connect by `http://localhost:3000/dog`. *(port 3000 is just an example)*
 
 #### Route Mapping
 
@@ -81,9 +81,9 @@ The `@RouteMapping` decorator will mount your decorated method as a routing dest
 A ControllerMapping parameter
 - path - a string of route path
   - It can be anything that [Express.js](https://expressjs.com/en/4x/api.html#path-examples) support
-- method - an enum of http method (You can import `Methods` from Springpress)
+- method - an enum of HTTP method (You can import `Methods` from Springpress)
 
-Now, your client will see `http://localhost:3000/dog/name` and get a response in json type like below.
+Now, your client will see `http://localhost:3000/dog/name` and get a response in JSON type like below.
 
 ```json
 {
@@ -93,7 +93,7 @@ Now, your client will see `http://localhost:3000/dog/name` and get a response in
 
 #### Controller Registration
 
-Everything above in Controller section will not work if you don't register a controller object in the Server class
+Everything above in the Controller section will not work if you don't register a controller object in the Server class
 
 ```ts
 import { Springpress } from 'springpress';
@@ -112,10 +112,10 @@ class ExampleServer extends Springpress {
 
 There are many ways in which you can participate in this project, for example:
 
-- [Submit bugs and feature request](https://github.com/riflowth/springpress/issues).
+- [Submit bugs and feature requests](https://github.com/riflowth/springpress/issues).
 - Review [source code changes](https://github.com/riflowth/tier-discord-bot/pulls).
 - Fixing issues and contributing directly to the code base by [submitting pull requests](https://github.com/riflowth/tier-discord-bot/pulls).
 
 ## License
 
-License under the [MIT](https://github.com/riflowth/nextpress/blob/main/LICENSE) license.
+Licensed under the [MIT](https://github.com/riflowth/nextpress/blob/main/LICENSE) license.
