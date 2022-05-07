@@ -6,7 +6,7 @@ A Top-level framework of Express.js for developing clean architecture API servic
 
 ## Installation
 
-**Node.js 16.15.0 (LTS) is required**
+> **Node.js 16.15.0 (LTS) is required**
 
 Using npm:
 ```
@@ -47,16 +47,66 @@ exampleServer.listen();
 
 ### Controller
 
+#### Controller Mapping
+
 Easily define your controller with `@ControllerMapping` decorator:
 
 ```ts
-@ControllerMapping('/example')
-class ExampleController extends Controller {
+@ControllerMapping('/dog') // <-- Decorator here!
+class DogController extends Controller {
   // Routes will be here.
 }
 ```
 
-The `@ControllerMapping` decorator will map your class on a router with the path where you specified in the first decorator parameter. In this case, this class will be mapped with `/example` on the router, a client can connect by `http://localhost:3000/example`. *(port 3000 just an example)*
+The `@ControllerMapping` decorator will mount your class on a router with the path where you specified in the first decorator parameter. In this case, this class will be mapped with `/dog` on the router, a client can connect by `http://localhost:3000/dog`. *(port 3000 just an example)*
+
+#### Route Mapping
+
+Easily define your route with `@RouteMapping` decorator:
+
+```ts
+@ControllerMapping('/dog')
+class DogController extends Controller {
+  @RouteMapping('/name', Methods.GET) // <-- Decorator here!
+  private async getNameById(req: Request, res: Response) {
+    res.status(200).json({
+      name: 'Doge',
+    });
+  }
+}
+```
+
+The `@RouteMapping` decorator will mount your decorated method as a routing destination of an HTTP request.
+
+A ControllerMapping parameter
+- path - a string of route path
+  - It can be anything that [Express.js](https://expressjs.com/en/4x/api.html#path-examples) support
+- method - an enum of http method (You can import `Methods` from Springpress)
+
+Now, your client will see `http://localhost:3000/dog/name` and get a response in json type like below.
+
+```json
+{
+  "name": "Doge"
+}
+```
+
+#### Controller Registration
+
+Everything above in Controller section will not work if you don't register a controller object in the Server class
+
+```ts
+import { Springpress } from 'springpress';
+import { DogController } from './controllers/DogController';
+
+class ExampleServer extends Springpress {
+  public onStartup(): Promise<void> {
+    // Don't forget here!
+    const controllerRegistry = this.getControllerRegistry();
+    controllerRegistry.register(new DogController());
+  }
+}
+```
 
 ## Contribution
 
