@@ -118,4 +118,6 @@ There are many ways in which you can participate in this project, for example:
 
 ## License
 
+Copyright (c) Vectier. All rights reserved.
+
 Licensed under the [MIT](https://github.com/riflowth/nextpress/blob/main/LICENSE) license.
