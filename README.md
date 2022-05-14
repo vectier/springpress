@@ -20,7 +20,7 @@ $ yarn add springpress
 
 ## Usage
 
-*Assume you will create a dog controller that sends a response of the name of the dog when requesting to /dog/name.*
+*Assume you will create a dog controller that sends a response of the dog name when requesting to `/dog/name`.*
 
 ### Server
 
@@ -30,14 +30,16 @@ First, you need to create a main class that extends class `Springpress`. This cl
 import { Springpress } from 'springpress';
 
 class ExampleServer extends Springpress {
+
   public onStartup(): Promise<void> {
     // This code will run when your start your application.
     // All of initialization should do it here.
   }
+
 }
 ```
 
-Don't forget to call `Springpress#listen` to binds and listens for connections. This method returns an [http.Server](https://nodejs.org/docs/latest-v16.x/api/http.html#class-httpserver) object (the built-in HTTP module). *You can use this instance on your testing framework to work with HTTP*.
+Don't forget to call `Springpress#listen` to binds and listens for connections. This method returns an [http.Server](https://nodejs.org/docs/latest-v16.x/api/http.html#class-httpserver) object (the built-in HTTP module). *You can use this instance in your testing framework to work with HTTP*.
 
 ```ts
 const port = 3000; // you can specify whatever port you want :)
@@ -54,11 +56,14 @@ Easily define your controller with `@ControllerMapping` decorator:
 ```ts
 @ControllerMapping('/dog') // <-- Decorator here!
 class DogController extends Controller {
-  // Routes will be here.
+  // Routes implementation will be here.
 }
 ```
 
-The `@ControllerMapping` decorator will mount your class on a router with the path where you specified in the first decorator parameter. In this case, this class will be mapped with `/dog` on the router, a client can connect by `http://localhost:3000/dog`. *(port 3000 is just an example)*
+The `@ControllerMapping` decorator will mount your class on a router with the path where you specified in the first decorator parameter. In this case, this class will be mapped with `/dog` on the router.
+
+- A client can connect by `http://localhost:3000/dog/` followed by your implemented route. *(port 3000 is just an example)*
+- On this step, you will not actually be able to access it. You need to implement a route first by following the next step.
 
 #### Route Mapping
 
@@ -67,23 +72,25 @@ Easily define your route with `@RouteMapping` decorator:
 ```ts
 @ControllerMapping('/dog')
 class DogController extends Controller {
+
   @RouteMapping('/name', Methods.GET) // <-- Decorator here!
-  private async getNameById(req: Request, res: Response) {
+  private async getName(req: Request, res: Response) {
     res.status(200).json({
       name: 'Doge',
     });
   }
+
 }
 ```
 
-The `@RouteMapping` decorator will mount your decorated method as a routing destination of an HTTP request.
+The `@RouteMapping` decorator will mount your decorated method as a routing destination of an HTTP request in a controller.
 
-A ControllerMapping parameter
+A RouteMapping parameter
 - path - a string of route path
-  - It can be anything that [Express.js](https://expressjs.com/en/4x/api.html#path-examples) support
-- method - an enum of HTTP method (You can import `Methods` from Springpress)
+  - It can be anything that [Express.js](https://expressjs.com/en/guide/routing.html) routing support
+- method - an enum of HTTP method (You can use `Methods` imported from Springpress)
 
-Now, your client will see `http://localhost:3000/dog/name` and get a response in JSON type like below.
+Now, your client will see `http://localhost:3000/dog/name` and get a response like below in a JSON format.
 
 ```json
 {
@@ -93,18 +100,20 @@ Now, your client will see `http://localhost:3000/dog/name` and get a response in
 
 #### Controller Registration
 
-Everything above in the Controller section will not work if you don't register a controller object in the Server class
+Everything above in the Controller section will not work if you don't register a controller in the Server class.
 
 ```ts
 import { Springpress } from 'springpress';
 import { DogController } from './controllers/DogController';
 
 class ExampleServer extends Springpress {
+
   public onStartup(): Promise<void> {
     // Don't forget here!
     const controllerRegistry = this.getControllerRegistry();
     controllerRegistry.register(new DogController());
   }
+
 }
 ```
 
