@@ -20,11 +20,11 @@ $ yarn add springpress
 
 ## Usage
 
-*Assume you will create a dog controller that sends a response of the dog name when requesting to `/dog/name`.*
+*Assume you are creating a dog controller that sends a response of the dog's name when requesting to `/dog/name`.*
 
 ### Server
 
-First, you need to create a main class that extends class `Springpress`. This class will store all of your things. *e.g. services, controllers, repositories initialization*.
+First, you need to create a main class that extends `Springpress` class. This class will store all of your things. *e.g. services, controllers, repositories initialization*.
 
 ```ts
 import { Springpress } from 'springpress';
@@ -39,7 +39,7 @@ class ExampleServer extends Springpress {
 }
 ```
 
-Don't forget to call `Springpress#listen` to binds and listens for connections. This method returns an [http.Server](https://nodejs.org/docs/latest-v16.x/api/http.html#class-httpserver) object (the built-in HTTP module). *You can use this instance in your testing framework to work with HTTP*.
+Don't forget to call `Springpress#listen` to bind and listen for connections. This method returns an [http.Server](https://nodejs.org/docs/latest-v16.x/api/http.html#class-httpserver) object (the built-in HTTP module). *You can use this instance in your testing framework to work with HTTP*.
 
 ```ts
 const port = 3000; // you can specify whatever port you want :)
@@ -100,7 +100,7 @@ Now, your client will see `http://localhost:3000/dog/name` and get a response li
 
 #### Controller Registration
 
-Everything above in the Controller section will not work if you don't register a controller in the Server class.
+Everything above in the Controller section will not work if you haven't registered the controller in the Server class.
 
 ```ts
 import { Springpress } from 'springpress';
