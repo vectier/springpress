@@ -39,7 +39,7 @@ class ExampleServer extends Springpress {
 }
 ```
 
-Don't forget to call `Springpress#listen` to bind and listen for connections. This method returns an [http.Server](https://nodejs.org/docs/latest-v16.x/api/http.html#class-httpserver) object (the built-in HTTP module). *You can use this instance in your testing framework to work with HTTP*.
+Don't forget to call `Springpress#listen` to bind to and to listen for conections. This method returns an [http.Server](https://nodejs.org/docs/latest-v16.x/api/http.html#class-httpserver) object (the built-in HTTP module). *You can use this instance in your testing framework to work with HTTP*.
 
 ```ts
 const port = 3000; // you can specify whatever port you want :)
