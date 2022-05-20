@@ -17,7 +17,7 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "files": [
     "LICENSE",
@@ -35,7 +35,9 @@
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
+    "@types/supertest": "^2.0.12",
     "jest": "^27.5.1",
+    "supertest": "^6.2.3",
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3"
   }
