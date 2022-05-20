@@ -1,29 +1,36 @@
-import { Methods, Middleware, RouteHandler, RouteMetadata } from '../..';
+import { Middleware, RouteHandler, RouteMetadata } from '../..';
 
-export class MockMiddleware implements Middleware {
+export class MockMiddleware extends Middleware {
 
-  public getHandler(): RouteHandler {
+  public getHandler(routeMetadata: RouteMetadata): RouteHandler {
     return async (req, res, next) => {
       next();
     };
-  }
-
-  public getRegisterCondition(routeMethod: Methods, routeMetadata: RouteMetadata): boolean {
-    return true;
   }
 
 }
 
-export class MockConditionalMiddleware implements Middleware {
+export class MockConditionalMiddleware extends Middleware {
 
-  public getHandler(): RouteHandler {
+  public getHandler(routeMetadata: RouteMetadata): RouteHandler {
     return async (req, res, next) => {
       next();
     };
   }
 
-  public getRegisterCondition(routeMethod: Methods, routeMetadata: RouteMetadata): boolean {
+  public getRegisterCondition(routeMetadata: RouteMetadata): boolean {
     return routeMetadata.path === '/test2';
+  }
+
+}
+
+export class PingPongMiddleware extends Middleware {
+
+  public getHandler(routeMetadata: RouteMetadata): RouteHandler {
+    return async (req, res, next) => {
+      res.header('ping', 'pong');
+      next();
+    };
   }
 
 }
