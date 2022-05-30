@@ -6,20 +6,16 @@ import { MockConditionalMiddleware, MockMiddleware, PingPongMiddleware } from '.
 
 describe('Test the ControllerRegistry class implementation', () => {
 
-  const originalEnv = process.env;
   let expressApp: Express;
   let controllerRegistry: ControllerRegistry;
 
   beforeEach(() => {
-    process.env = { ...originalEnv };
-
     expressApp = express();
     controllerRegistry = new ControllerRegistry(expressApp);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
-    process.env = originalEnv;
   });
 
   it('should registered the mock controllers correctly', () => {
@@ -30,14 +26,10 @@ describe('Test the ControllerRegistry class implementation', () => {
     expect(findRouter(expressApp).length).toBe(2);
   });
 
-  it('should warn an error correctly when register a duplicated controller', () => {
+  it('should warn an error when register a duplicated controller', () => {
     jest.spyOn(console, 'warn').mockImplementation(jest.fn());
 
     controllerRegistry.register(new MockIndexController());
-    controllerRegistry.register(new MockIndexController());
-
-    // It should not warn when NODE_ENV is production
-    process.env.NODE_ENV = 'production'
     controllerRegistry.register(new MockIndexController());
 
     expect(console.warn).toBeCalledTimes(1);
