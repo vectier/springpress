@@ -12,27 +12,26 @@ export abstract class Controller {
    */
   getPath(): string;
   /**
-   * Returns the router structure with handler and metadata of the controller
+   * Returns the router structure with handler and metadata of the controller.
    * for converting to the modular express router.
    * @returns The router structure (array of {@link Route})
    */
   getRouter(): Route[];
 }
 
-export interface Middleware {
+export abstract class Middleware {
   /**
    * Returns a function that have access to the request object,
    * the response object, and the next middleware function.
    * @param routeMetadata - A route metadata
    */
-  getHandler(routeMetadata: RouteMetadata): RouteHandler;
+  abstract getHandler(routeMetadata: RouteMetadata): RouteHandler;
   /**
- * Returns a boolean represent to the middleware register condition
- * @param routeMethod - A route method for conditioning
- * @param routeMetadata - A route metadata for conditioning
- * @returns True if a route matches the middleware register condition, otherwise returns false
- */
-  getRegisterCondition(routeMethod: Methods, routeMetadata: RouteMetadata): boolean;
+   * Returns a boolean represent to the middleware register condition
+   * @param routeMetadata - A route metadata for conditioning
+   * @returns True if a route matches the middleware register condition, otherwise returns false
+   */
+  getRegisterCondition(routeMetadata: RouteMetadata): boolean;
 }
 
 export class ControllerRegistry {
@@ -42,12 +41,17 @@ export class ControllerRegistry {
    * into the controller registry for routing system.
    * 
    * @remarks
-   * The middlewares run in the sequence as passed in the parameter.
+   * The middleware run in the sequence as passed in the array.
    * 
    * @param controller - A controller instance
-   * @param middlewares - A single middleware or a group of middleware
+   * @param middleware - An array of middleware
    */
-  register(controller: Controller, ...middlewares: Middleware[]): void;
+  register(controller: Controller, middleware?: Middleware[]): void;
+  /**
+   * Registers global middleware in the application routing.
+   * @param middleware - A middleware or an array of middleware to register globally
+   */
+  registerGlobalMiddleware(middleware: Middleware | Middleware[]): void;
   /**
    * @returns A count of registered controller
    */
@@ -83,19 +87,19 @@ export abstract class HttpException extends Error {
 /**
  * Throws a http response code 400
  */
-export class BadRequestException extends HttpException {}
+export class BadRequestException extends HttpException { }
 /**
  * Throws a http response code 403
  */
-export class ForbiddenException extends HttpException {}
+export class ForbiddenException extends HttpException { }
 /**
  * Throws a http response code 404
  */
-export class NotFoundException extends HttpException {}
+export class NotFoundException extends HttpException { }
 /**
  * Throws a http response code 401
  */
-export class UnauthorizedException extends HttpException {}
+export class UnauthorizedException extends HttpException { }
 
 /**
  * Accepted http request methods
@@ -120,15 +124,15 @@ export type Route = {
   metadata: RouteMetadata,
 };
 
-export interface Request extends ExpressRequest {}
+export interface Request extends ExpressRequest { }
 
-export interface Response extends ExpressResponse {}
+export interface Response extends ExpressResponse { }
 
-export interface NextFunction extends ExpressNextFunction {}
+export interface NextFunction extends ExpressNextFunction { }
 
 export class RouteUtil {
   /**
-   * Add data into the route metadata
+   * Add data into the route metadata.
    * @param data - A key-value pairs of data to merge into the route metadata
    */
   static addRouteMetadata(data: Record<string, any>): MethodDecorator;

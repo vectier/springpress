@@ -1,24 +1,21 @@
 import express, { Express } from 'express';
+import request from 'supertest';
 import { ControllerRegistry } from '..';
 import { MockIndexController, MockTestController } from './mock/MockController';
-import { MockConditionalMiddleware, MockMiddleware } from './mock/MockMiddleware';
+import { MockConditionalMiddleware, MockMiddleware, PingPongMiddleware } from './mock/MockMiddleware';
 
 describe('Test the ControllerRegistry class implementation', () => {
 
-  const originalEnv = process.env;
   let expressApp: Express;
   let controllerRegistry: ControllerRegistry;
 
   beforeEach(() => {
-    process.env = { ...originalEnv };
-
     expressApp = express();
     controllerRegistry = new ControllerRegistry(expressApp);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
-    process.env = originalEnv;
   });
 
   it('should registered the mock controllers correctly', () => {
@@ -29,14 +26,10 @@ describe('Test the ControllerRegistry class implementation', () => {
     expect(findRouter(expressApp).length).toBe(2);
   });
 
-  it('should warn an error correctly when register a duplicated controller', () => {
+  it('should warn an error when register a duplicated controller', () => {
     jest.spyOn(console, 'warn').mockImplementation(jest.fn());
 
     controllerRegistry.register(new MockIndexController());
-    controllerRegistry.register(new MockIndexController());
-
-    // It should not warn when NODE_ENV is production
-    process.env.NODE_ENV = 'production'
     controllerRegistry.register(new MockIndexController());
 
     expect(console.warn).toBeCalledTimes(1);
@@ -48,7 +41,7 @@ describe('Test the ControllerRegistry class implementation', () => {
     // Unconditional middleware means this middleware should register for all routes.
     // NOTE:
     // - Expect 2 means the stack has middleware function and route handler function.
-    controllerRegistry.register(new MockIndexController(), new MockMiddleware());
+    controllerRegistry.register(new MockIndexController(), [new MockMiddleware()]);
     router = findRouter(expressApp);
     routes = router[0].handle.stack;
     routes.forEach((layer: any) => expect(layer.route.stack.length).toBe(2));
@@ -59,7 +52,7 @@ describe('Test the ControllerRegistry class implementation', () => {
     // - In MockTestController has only 1 route path named 'test2'.
     // - Expect 1 means the stack has only route handler function.
     // - Expect 2 means the stack has middleware function and route handler function.
-    controllerRegistry.register(new MockTestController(), new MockConditionalMiddleware());
+    controllerRegistry.register(new MockTestController(), [new MockConditionalMiddleware()]);
     router = findRouter(expressApp);
     routes = router[1].handle.stack;
     expect(routes.find((layer: any) => layer.route.path === '/test').route.stack.length).toBe(1);
@@ -68,8 +61,16 @@ describe('Test the ControllerRegistry class implementation', () => {
 
   it('should return a registered controller count correctly', () => {
     controllerRegistry.register(new MockIndexController());
-    controllerRegistry.register(new MockTestController(), new MockMiddleware());
+    controllerRegistry.register(new MockTestController(), [new MockMiddleware()]);
     expect(controllerRegistry.size()).toBe(2);
+  });
+
+  it('should contain ping in response header when register middleware globally', async () => {
+    controllerRegistry.registerGlobalMiddleware(new PingPongMiddleware());
+    controllerRegistry.register(new MockIndexController());
+
+    const response = await request(expressApp).get('/test');
+    expect(response.headers['ping']).toBe('pong');
   });
 
 });
