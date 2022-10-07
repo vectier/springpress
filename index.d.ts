@@ -105,11 +105,15 @@ export class UnauthorizedException extends HttpException { }
  * Accepted http request methods
  */
 export enum Methods {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  PATCH = 'PATCH',
-  DELETE = 'DELETE',
+  GET     = 'GET',
+  HEAD    = 'HEAD',
+  POST    = 'POST',
+  PUT     = 'PUT',
+  DELETE  = 'DELETE',
+  CONNECT = 'CONNECT',
+  OPTIONS = 'OPTIONS',
+  TRACE   = 'TRACE',
+  PATCH   = 'PATCH',
 }
 
 export type RouteHandler = (req: Request, res: Response, next: NextFunction) => Promise<void>;
