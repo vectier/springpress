@@ -5,6 +5,13 @@ import {
   NextFunction as ExpressNextFunction,
 } from 'express';
 
+declare global {
+  // Allow application-specific manner to extend Springpress interfaces.
+  namespace Springpress {
+    interface RouteMetadata {}
+  }
+}
+
 export abstract class Controller {
   /**
    * Gets the modular router path of the controller instance.
@@ -27,7 +34,7 @@ export abstract class Middleware {
    */
   abstract getHandler(routeMetadata: RouteMetadata): RouteHandler;
   /**
-   * Returns a boolean represent to the middleware register condition
+   * Returns a boolean represent to the middleware register condition.
    * @param routeMetadata - A route metadata for conditioning
    * @returns True if a route matches the middleware register condition, otherwise returns false
    */
@@ -118,9 +125,9 @@ export enum Methods {
 
 export type RouteHandler = (req: Request, res: Response, next: NextFunction) => Promise<void>;
 
-export type RouteMetadata = {
-  path: string,
-  method: Methods,
+export interface RouteMetadata extends Springpress.RouteMetadata {
+  path: string;
+  method: Methods;
 };
 
 export type Route = {
@@ -128,9 +135,41 @@ export type Route = {
   metadata: RouteMetadata,
 };
 
-export interface Request extends ExpressRequest { }
+export type RequestParam = {
+  [key: string]: string,
+};
 
-export interface Response extends ExpressResponse { }
+export type RequestQuery = {
+  [key: string]: undfined | string | string[],
+};
+
+export interface ApiSchema {
+  /**
+   * Key-value pairs of incoming data from the request body
+   */
+  body?: Object;
+  /**
+   * An object containing properties mapped to the route parameter
+   */
+  param?: RequestParam;
+  /**
+   * An object containing a property for each query string parameter
+   */
+  query?: RequestQuery;
+  /**
+   * An object represents the response format
+   */
+  res?: Object;
+};
+
+export type Request<T extends ApiSchema = ApiSchema> = ExpressRequest<T["param"], any, T["body"], T["query"]>;
+
+export type Response<T extends ApiSchema = ApiSchema> = ExpressResponse<T["body"]>;
+
+/**
+ * For constructing API route schema by following the {@link ApiSchema} type.
+ */
+export type CreateApiSchema<T extends ApiSchema> = T;
 
 export interface NextFunction extends ExpressNextFunction { }
 
