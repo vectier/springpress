@@ -164,7 +164,7 @@ export interface ApiSchema {
 
 export type Request<T extends ApiSchema = ApiSchema> = ExpressRequest<T["param"], any, T["body"], T["query"]>;
 
-export type Response<T extends ApiSchema = ApiSchema> = ExpressResponse<T["body"]>;
+export type Response<T extends ApiSchema = ApiSchema> = ExpressResponse<T["res"]>;
 
 /**
  * For constructing API route schema by following the {@link ApiSchema} type.
